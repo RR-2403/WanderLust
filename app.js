@@ -130,6 +130,7 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", postsRouter);
 
 app.use("/", user);
+app.get("/", (req, res) => res.redirect("/listings"));
 
 
 app.use((req, res, next) => {
