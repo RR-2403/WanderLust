@@ -378,6 +378,8 @@ A custom `ExpressError` utility creates application-specific HTTP errors.
 | **Frontend** | HTML, CSS, JavaScript, EJS and layouts, Bootstrap, responsive design |
 | **Cloud & APIs** | Cloudinary, Mapbox, geocoding APIs, cloud image storage, environment variables |
 
+🔗 **Live Demo:** https://wander-lust-six-wine.vercel.app/listings
+
 ### 🛠️ Development Journey
 
 The project was built incrementally:
