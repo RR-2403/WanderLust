@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-md wl-navbar sticky-top">
+  <div class="container">
+
+    <!-- BRAND -->
+    <a class="navbar-brand wl-brand d-flex align-items-center gap-2" href="/listings">
+      <span class="wl-brand-mark"><i class="fa-regular fa-compass"></i></span>
+      <span class="wl-brand-name">Wanderlust</span>
+    </a>
+
+    <!-- TOGGLER -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- NAVBAR CONTENT -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- LEFT SIDE -->
+      <div class="navbar-nav">
+
+        <a class="nav-link" href="/listings">
+          Explore
+        </a>
+
+      </div>
+
+      <!-- RIGHT SIDE - AUTHENTICATION -->
+      <div class="navbar-nav ms-auto align-items-md-center gap-md-1">
+        <a class="nav-link" href="/listings/new">
+          <i class="bi bi-house-heart me-1"></i>
+          Airbnb Your Home
+        </a>
+        <% if(!currUser) { %>
+        <!-- SIGN UP -->
+        <a class="nav-link" href="/signup">
+          <i class="fa-solid fa-user-plus me-1"></i>
+          Sign Up
+        </a>
+
+        <!-- LOGIN -->
+        <a class="btn btn-primary rounded-pill px-4 ms-md-1" href="/login">
+          <i class="fa-solid fa-right-to-bracket me-1"></i>
+          Login
+        </a>
+        <% } %> <% if(currUser) {%>
+
+        <!-- LOGOUT -->
+        <a class="btn btn-outline-primary rounded-pill px-4 ms-md-1" href="/logout">
+          <i class="fa-solid fa-right-from-bracket me-1"></i>
+          Logout
+        </a>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</nav>

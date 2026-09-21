@@ -1,0 +1,408 @@
+<% layout("layout/boilerplate") %>
+
+<!-- ========================================= -->
+<!-- BREADCRUMB + TITLE -->
+<!-- ========================================= -->
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb wl-breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/listings">Explore</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= listing.title %></li>
+    </ol>
+</nav>
+
+<header class="mb-4">
+
+    <!-- Listing Title -->
+    <h1 class="wl-page-title"><%= listing.title %></h1>
+
+    <p class="wl-subline">
+        <i class="bi bi-geo-alt-fill"></i><%= listing.location %>, <%= listing.country %>
+    </p>
+
+</header>
+
+<!-- Listing Image -->
+<img
+    src="<%= listing.image.url %>"
+    class="wl-photo mb-4 mb-lg-5"
+    alt="<%= listing.title %>"
+>
+
+
+<div class="row g-4 g-lg-5">
+
+    <!-- ========================================= -->
+    <!-- MAIN COLUMN -->
+    <!-- ========================================= -->
+
+    <div class="col-lg-8">
+
+        <!-- ========================================= -->
+        <!-- LISTING DETAILS -->
+        <!-- ========================================= -->
+
+        <section class="wl-section">
+
+            <h2 class="wl-section-title">About this place</h2>
+
+            <!-- Description -->
+            <p class="wl-description">
+                <%= listing.description %>
+            </p>
+
+        </section>
+
+
+        <!-- ========================================= -->
+        <!-- LEAVE A REVIEW -->
+        <!-- ========================================= -->
+
+        <% if (currUser) { %>
+
+            <section class="wl-section">
+
+                <div class="wl-review-form">
+
+                    <h2 class="wl-section-title">
+                        <i class="bi bi-chat-square-text"></i>
+                        Leave a Review
+                    </h2>
+
+                    <form
+                        action="/listings/<%= listing._id %>/reviews"
+                        method="POST"
+                        class="needs-validation"
+                        novalidate
+                    >
+
+                        <!-- Rating -->
+                        <div class="mb-4">
+
+                            <label
+                                for="rating"
+                                class="form-label"
+                            >
+                                Rating
+                            </label>
+
+                            <input
+                                type="range"
+                                class="form-range"
+                                min="1"
+                                max="5"
+                                step="1"
+                                id="rating"
+                                name="review[rating]"
+                                required
+                            >
+
+                            <div class="d-flex justify-content-between px-1">
+                                <small class="text-muted">1</small>
+                                <small class="text-muted">2</small>
+                                <small class="text-muted">3</small>
+                                <small class="text-muted">4</small>
+                                <small class="text-muted">5</small>
+                            </div>
+
+                            <div class="invalid-feedback">
+                                Please provide a rating.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Comment -->
+                        <div class="mb-4">
+
+                            <label
+                                for="comment"
+                                class="form-label"
+                            >
+                                Comments
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="comment"
+                                name="review[comment]"
+                                rows="4"
+                                placeholder="Share your experience..."
+                                required
+                            ></textarea>
+
+                            <div class="invalid-feedback">
+                                Please enter a comment.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Submit Review -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary rounded-pill px-4"
+                        >
+                            Submit Review
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        <% } %>
+
+
+        <!-- ========================================= -->
+        <!-- ALL REVIEWS -->
+        <!-- ========================================= -->
+
+        <section class="wl-section">
+
+            <h2 class="wl-section-title">
+                <i class="bi bi-star-fill"></i>
+                All Reviews
+                <span class="wl-count">(<%= listing.reviews.length %>)</span>
+            </h2>
+
+            <% if (listing.reviews.length === 0) { %>
+
+                <div class="wl-no-reviews">
+                    No reviews yet. Be the first to review this listing!
+                </div>
+
+            <% } else { %>
+
+                <% for (let review of listing.reviews) { %>
+
+                    <!-- Single Review -->
+                    <div class="wl-review">
+
+                        <span class="wl-avatar">
+                            <i class="bi bi-person-fill"></i>
+                        </span>
+
+                        <div class="flex-grow-1">
+
+                            <!-- Guest + Rating -->
+                            <div class="d-flex justify-content-between align-items-start gap-2">
+
+                                <div>
+                                    <strong>Guest</strong>
+
+                                    <!-- Review Date -->
+                                    <small class="d-block text-body-secondary">
+                                        <%= review.createdAt.toLocaleDateString() %>
+                                    </small>
+                                </div>
+
+                                <span class="wl-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <%= review.rating %>/5
+                                </span>
+
+                            </div>
+
+
+                            <!-- Review Comment -->
+                            <p class="mt-2 mb-3">
+                                <%= review.comment %>
+                            </p>
+
+
+                            <!-- Delete Review -->
+                            <form
+                                method="POST"
+                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm btn-outline-danger rounded-pill"
+                                >
+                                    <i class="bi bi-trash3 me-1"></i>
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                <% } %>
+
+            <% } %>
+
+        </section>
+
+
+        <!-- ========================================= -->
+        <!-- MAP -->
+        <!-- ========================================= -->
+
+        <section class="wl-section">
+
+            <!-- Map Heading -->
+            <h2 class="wl-section-title">
+                <i class="bi bi-geo-alt-fill"></i>
+                Where you'll be
+            </h2>
+
+            <!-- Map -->
+            <div id="map"></div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- SIDEBAR: PRICE, DETAILS + ACTIONS -->
+    <!-- ========================================= -->
+
+    <div class="col-lg-4 order-first order-lg-last">
+
+        <aside class="wl-panel wl-sticky sticky-lg-top p-4">
+
+            <!-- Price -->
+            <p class="wl-price">
+                <span class="wl-price-amount">&#8377; <%= listing.price.toLocaleString() %></span>
+                / night
+            </p>
+
+            <hr class="my-3">
+
+            <!-- Listing Information -->
+            <ul class="wl-facts">
+
+                <!-- Location -->
+                <li>
+                    <i class="bi bi-geo-alt"></i>
+                    <div>
+                        <span class="wl-fact-label">Location</span>
+                        <span class="fw-semibold"><%= listing.location %></span>
+                    </div>
+                </li>
+
+                <!-- Country -->
+                <li>
+                    <i class="bi bi-globe2"></i>
+                    <div>
+                        <span class="wl-fact-label">Country</span>
+                        <span class="fw-semibold"><%= listing.country %></span>
+                    </div>
+                </li>
+
+            </ul>
+
+            <hr class="my-3">
+
+            <!-- Listing Actions -->
+            <div class="listing-actions d-grid gap-2">
+
+                <!-- Edit Listing -->
+                <a
+                    href="/listings/<%= listing._id %>/edit"
+                    class="btn btn-primary rounded-pill"
+                >
+                    <i class="bi bi-pencil-square me-1"></i>
+                    Edit this listing
+                </a>
+
+                <!-- Delete Listing -->
+                <form
+                    method="POST"
+                    action="/listings/<%= listing._id %>?_method=DELETE"
+                >
+                    <button
+                        type="submit"
+                        class="btn btn-outline-danger rounded-pill w-100"
+                    >
+                        <i class="bi bi-trash3 me-1"></i>
+                        Delete this listing
+                    </button>
+                </form>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================= -->
+<!-- MAPBOX -->
+<!-- ========================================= -->
+
+<script>
+
+    const mapToken = "<%= process.env.MAP_TOKEN %>";
+
+    <% if (listing.geometry && listing.geometry.coordinates) { %>
+
+        // Get coordinates directly as a JavaScript array
+        const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+
+        console.log("Listing coordinates:", coordinates);
+        console.log("Longitude:", coordinates[0]);
+        console.log("Latitude:", coordinates[1]);
+
+
+        // Create map
+        const map = new mapboxgl.Map({
+            accessToken: mapToken,
+            container: "map",
+
+            // Center map on listing location
+            center: coordinates,
+
+            zoom: 10
+        });
+
+
+        // Add marker
+        const marker = new mapboxgl.Marker({
+            color: "#ff0000"
+        })
+            .setLngLat(coordinates)
+            .setPopup(new mapboxgl.Popup({offset: 20,})
+            .setHTML(`<h5>Exact location provided after booking!</h5>`))
+            .addTo(map);
+
+
+        // Optional popup
+        const popup = new mapboxgl.Popup({
+            offset: 25
+        }).setHTML(`
+            <h6><strong><%= listing.title %></strong></h6>
+            <p class="mb-0">
+                <%= listing.location %>, <%= listing.country %>
+            </p>
+        `);
+
+
+        marker.setPopup(popup);
+
+
+    <% } else { %>
+
+        console.log("No coordinates available for this listing.");
+
+        const map = new mapboxgl.Map({
+            accessToken: mapToken,
+            container: "map",
+            center: coordinates,
+            zoom: 5
+        });
+
+    <% } %>
+
+</script>
+
+
+<script src="/js/script.js"></script>

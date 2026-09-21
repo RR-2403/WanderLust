@@ -1,0 +1,768 @@
+/* ==========================================================================
+   WANDERLUST — design layer on top of Bootstrap 5.3
+   --------------------------------------------------------------------------
+   This file is loaded AFTER Bootstrap, so it can theme Bootstrap through its
+   own CSS variables (no !important hacks needed).
+   To re-brand the whole site, change the tokens in the :root block below.
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------
+   1. DESIGN TOKENS
+   ------------------------------------------------------------------------- */
+:root {
+  /* Palette */
+  --wl-ink: #0c2d33;          /* deep lagoon — headings, footer          */
+  --wl-teal: #147d86;         /* primary — buttons, links, icons         */
+  --wl-teal-dark: #0f636b;    /* primary hover                           */
+  --wl-mist: #eef6f5;         /* soft tinted surfaces                    */
+  --wl-paper: #f7faf9;        /* page background                         */
+  --wl-line: #dbe7e6;         /* hairlines and borders                   */
+  --wl-muted: #587277;        /* secondary text                          */
+  --wl-marigold: #f4a62a;     /* accent — price tags, ratings            */
+
+  /* Shape + depth */
+  --wl-radius-lg: 1.25rem;
+  --wl-radius-md: 0.875rem;
+  --wl-shadow: 0 1px 2px rgba(12, 45, 51, 0.05), 0 10px 28px rgba(12, 45, 51, 0.08);
+
+  /* Type */
+  --wl-font-display: "Young Serif", Georgia, "Times New Roman", serif;
+
+  /* Topographic contour motif (used on the hero band and auth panels) */
+  --wl-contours: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 420' fill='none' stroke='white' stroke-opacity='0.16' stroke-width='1.3'%3E%3Cpath d='M504.9,170.0C505.7,173.0 504.4,176.9 502.3,179.6C500.2,182.3 495.7,184.2 492.3,186.1C489.0,188.0 485.7,189.8 482.0,190.9C478.3,192.0 474.0,192.5 470.0,192.6C466.0,192.6 462.0,191.8 457.9,191.0C453.8,190.2 448.6,189.8 445.2,187.8C441.9,185.9 438.7,182.6 437.8,179.6C436.9,176.6 439.2,173.0 439.9,170.0C440.7,167.0 441.2,164.6 442.2,161.7C443.3,158.9 443.9,155.3 446.4,153.0C448.9,150.6 453.2,148.9 457.1,147.6C461.1,146.4 465.7,145.7 470.0,145.8C474.3,145.8 479.2,146.3 482.8,147.8C486.3,149.3 488.7,152.4 491.2,154.8C493.7,157.1 495.6,159.2 497.9,161.7C500.2,164.2 504.2,167.0 504.9,170.0Z'/%3E%3Cpath d='M541.9,170.0C543.2,176.1 539.6,184.0 535.2,189.4C530.8,194.9 522.1,198.7 515.3,202.6C508.5,206.5 502.1,210.5 494.5,212.7C487.0,214.9 478.2,215.8 470.0,215.9C461.8,216.0 453.6,214.7 445.2,213.2C436.7,211.6 425.8,210.6 419.1,206.7C412.4,202.7 406.7,195.5 405.1,189.4C403.5,183.2 408.1,176.1 409.4,170.0C410.7,163.9 410.8,158.7 412.8,152.9C414.8,147.1 416.4,139.9 421.6,135.2C426.8,130.4 435.8,127.0 443.8,124.5C451.9,122.1 461.3,120.4 470.0,120.5C478.7,120.6 488.7,121.9 495.9,125.0C503.0,128.2 507.5,134.6 512.8,139.2C518.0,143.8 522.7,147.7 527.5,152.8C532.4,158.0 540.6,163.9 541.9,170.0Z'/%3E%3Cpath d='M579.3,170.0C580.8,179.2 574.3,190.9 567.4,199.1C560.6,207.2 548.2,213.1 538.1,219.0C528.0,224.9 518.5,231.2 507.1,234.5C495.8,237.9 482.5,238.9 470.0,239.1C457.5,239.3 445.1,238.0 432.2,235.7C419.3,233.5 402.5,231.8 392.6,225.7C382.8,219.6 375.5,208.1 373.3,198.9C371.0,189.6 377.7,179.1 379.3,170.0C380.8,160.9 379.8,152.8 382.7,144.0C385.6,135.2 388.7,124.3 396.7,117.2C404.7,110.1 418.4,105.2 430.6,101.5C442.8,97.8 457.0,94.9 470.0,95.1C483.0,95.3 498.1,97.9 508.7,102.7C519.4,107.5 525.8,117.0 534.1,123.9C542.3,130.7 550.5,136.1 558.0,143.7C565.6,151.4 577.7,160.8 579.3,170.0Z'/%3E%3Cpath d='M616.9,170.0C618.4,182.4 608.3,197.6 599.0,208.5C589.6,219.4 574.1,227.4 560.8,235.4C547.6,243.4 534.8,251.9 519.7,256.4C504.6,260.9 486.8,261.8 470.0,262.2C453.2,262.6 436.3,261.6 419.0,258.7C401.6,255.8 378.8,253.3 366.0,244.9C353.3,236.4 345.1,220.5 342.4,208.1C339.6,195.6 347.8,182.2 349.4,170.0C350.9,157.8 348.1,146.6 351.8,134.8C355.5,123.0 360.8,108.6 371.7,99.2C382.6,89.8 401.0,83.4 417.3,78.5C433.7,73.5 452.7,69.2 470.0,69.6C487.3,70.0 507.1,74.3 521.3,80.8C535.5,87.3 543.8,99.7 555.2,108.7C566.6,117.6 579.2,124.1 589.5,134.4C599.8,144.6 615.3,157.6 616.9,170.0Z'/%3E%3Cpath d='M654.5,170.0C655.8,185.5 641.6,204.0 629.8,217.7C618.0,231.3 599.8,241.7 583.6,251.8C567.3,261.9 551.2,272.7 532.3,278.3C513.4,283.9 491.1,284.7 470.0,285.3C448.9,286.0 427.2,285.8 405.4,282.2C383.7,278.7 354.9,274.9 339.4,264.0C323.9,253.2 315.8,232.6 312.5,217.0C309.2,201.3 318.2,185.3 319.5,170.0C320.8,154.7 315.7,140.1 320.3,125.3C324.8,110.6 332.7,92.9 346.7,81.2C360.7,69.6 383.5,61.6 404.1,55.4C424.6,49.3 448.4,43.5 470.0,44.1C491.6,44.8 515.9,51.2 533.6,59.4C551.3,67.6 561.6,82.6 576.3,93.5C591.0,104.4 609.0,111.9 622.0,124.7C635.0,137.4 653.2,154.5 654.5,170.0Z'/%3E%3Cpath d='M691.9,170.0C692.7,188.7 674.2,210.3 659.9,226.6C645.7,243.0 625.6,256.0 606.4,268.2C587.2,280.5 567.6,293.4 544.9,300.1C522.1,306.8 495.5,307.4 470.0,308.5C444.5,309.5 417.8,310.5 391.6,306.3C365.4,302.1 330.9,296.6 312.9,283.1C294.9,269.7 287.5,244.4 283.6,225.6C279.7,206.7 288.7,188.3 289.4,170.0C290.2,151.7 282.7,133.5 288.1,115.7C293.4,98.0 304.7,77.2 321.8,63.3C338.9,49.4 366.1,39.8 390.8,32.4C415.5,24.9 444.2,17.6 470.0,18.7C495.8,19.7 524.4,28.6 545.6,38.6C566.9,48.5 579.2,65.5 597.5,78.2C615.8,90.9 639.8,99.4 655.5,114.7C671.2,130.0 691.2,151.3 691.9,170.0Z'/%3E%3Cpath d='M729.0,170.0C728.9,191.8 706.1,216.3 689.5,235.4C672.9,254.6 651.4,270.3 629.4,284.7C607.4,299.2 583.9,314.0 557.4,321.9C530.8,329.7 500.0,330.2 470.0,331.7C440.0,333.2 408.0,335.9 377.4,330.9C346.9,326.0 306.9,318.2 286.7,302.0C266.4,285.8 260.4,255.9 255.8,233.9C251.1,211.9 259.1,191.3 259.0,170.0C258.9,148.7 248.9,126.7 255.2,105.9C261.6,85.2 276.7,61.6 297.0,45.5C317.4,29.3 348.7,17.9 377.5,9.2C406.3,0.5 440.0,-8.2 470.0,-6.7C500.0,-5.2 532.5,6.7 557.3,18.3C582.1,29.8 596.9,48.4 619.0,62.7C641.1,77.1 671.6,86.5 690.0,104.4C708.3,122.3 729.1,148.2 729.0,170.0Z'/%3E%3Cpath d='M765.4,170.0C764.2,195.0 737.3,222.2 718.5,244.1C699.7,266.0 677.3,284.8 652.5,301.4C627.7,317.9 600.2,334.5 569.8,343.5C539.4,352.5 504.5,353.1 470.0,355.2C435.5,357.3 397.8,361.9 362.9,356.1C328.1,350.3 283.3,339.6 260.9,320.6C238.5,301.5 234.3,267.0 228.7,241.9C223.2,216.9 229.0,194.3 227.9,170.0C226.7,145.7 214.5,119.7 221.9,96.0C229.3,72.3 248.7,46.1 272.4,27.7C296.1,9.4 331.2,-4.1 364.1,-14.0C397.1,-24.0 435.9,-33.9 470.0,-31.8C504.1,-29.7 540.1,-14.6 568.6,-1.5C597.1,11.7 614.8,31.0 641.0,46.9C667.1,62.8 704.6,73.3 725.3,93.9C746.1,114.4 766.5,145.0 765.4,170.0Z'/%3E%3Cpath d='M801.0,170.0C798.6,198.3 768.0,228.0 747.1,252.7C726.3,277.3 703.2,299.4 675.7,318.1C648.2,336.9 616.5,354.8 582.2,365.0C547.9,375.1 509.0,376.2 470.0,379.0C431.0,381.8 387.2,388.5 348.2,381.7C309.1,375.0 260.0,360.7 235.7,338.7C211.4,316.7 209.1,277.9 202.5,249.8C195.9,221.7 198.4,197.3 196.0,170.0C193.6,142.7 179.5,112.6 188.2,86.0C196.9,59.3 220.9,30.7 247.9,10.1C275.0,-10.5 313.6,-26.4 350.6,-37.5C387.6,-48.6 431.8,-59.4 470.0,-56.6C508.2,-53.8 547.5,-35.2 579.7,-20.7C612.0,-6.2 633.2,13.4 663.5,30.7C693.8,48.0 738.5,59.9 761.5,83.1C784.4,106.3 803.4,141.7 801.0,170.0Z'/%3E%3Cpath d='M835.8,170.0C832.0,201.5 798.3,233.6 775.6,261.1C752.8,288.6 729.4,314.1 699.2,335.0C669.0,355.9 632.6,374.9 594.4,386.3C556.2,397.6 513.5,399.6 470.0,403.2C426.5,406.8 376.3,415.6 333.2,407.8C290.1,400.0 237.4,381.3 211.3,356.3C185.2,331.2 184.8,288.5 176.8,257.4C168.8,226.4 167.0,200.3 163.3,170.0C159.5,139.7 144.2,105.4 154.2,75.8C164.3,46.3 193.2,15.4 223.6,-7.4C254.1,-30.2 296.0,-48.8 337.1,-61.1C378.1,-73.3 427.8,-84.6 470.0,-81.0C512.2,-77.4 554.4,-55.3 590.5,-39.5C626.7,-23.7 652.2,-4.7 686.8,13.9C721.4,32.5 773.3,46.1 798.2,72.1C823.0,98.2 839.5,138.5 835.8,170.0Z'/%3E%3Cpath d='M869.6,170.0C864.3,204.7 828.3,239.2 803.9,269.6C779.4,299.9 755.6,329.0 722.7,352.0C689.8,374.9 648.7,394.7 606.6,407.4C564.5,420.1 518.1,423.5 470.0,428.0C421.9,432.4 365.0,443.3 318.0,434.2C271.0,425.1 215.5,401.4 187.7,373.2C160.0,345.0 161.3,298.8 151.6,265.0C141.9,231.1 134.8,203.2 129.6,170.0C124.3,136.8 108.5,98.1 120.2,65.7C131.8,33.2 165.6,0.3 199.5,-24.8C233.3,-49.9 278.3,-71.5 323.4,-84.8C368.5,-98.2 423.7,-109.3 470.0,-104.8C516.3,-100.4 561.0,-74.9 601.2,-58.0C641.4,-41.1 672.0,-23.4 711.0,-3.5C750.0,16.3 808.8,32.2 835.2,61.1C861.7,90.0 874.8,135.3 869.6,170.0Z'/%3E%3Cpath d='M147.7,340.0C147.1,342.5 144.9,344.7 143.3,346.8C141.7,349.0 140.4,351.2 138.1,352.8C135.8,354.4 132.6,355.4 129.6,356.4C126.6,357.4 123.5,358.2 120.0,358.6C116.5,359.1 112.0,360.1 108.7,359.3C105.5,358.4 102.4,355.9 100.6,353.7C98.9,351.6 99.3,348.6 98.3,346.4C97.4,344.1 95.5,342.3 94.9,340.0C94.3,337.7 93.6,334.8 94.5,332.5C95.5,330.3 98.3,328.1 100.7,326.3C103.2,324.6 106.2,322.7 109.4,321.9C112.6,321.0 116.7,320.8 120.0,321.2C123.3,321.7 126.0,323.7 128.9,324.7C131.9,325.7 134.9,326.0 138.0,327.3C141.0,328.5 145.5,329.9 147.1,332.0C148.7,334.2 148.3,337.5 147.7,340.0Z'/%3E%3Cpath d='M177.1,340.0C175.7,345.2 171.9,349.8 168.7,354.3C165.5,358.7 162.6,363.4 157.8,366.8C153.0,370.1 146.3,372.1 140.0,374.3C133.7,376.4 127.3,378.5 120.0,379.5C112.7,380.5 103.0,382.3 96.4,380.4C89.8,378.5 83.9,372.6 80.3,368.1C76.7,363.6 77.2,357.9 74.9,353.2C72.6,348.5 68.1,344.8 66.7,340.0C65.3,335.2 64.5,329.1 66.7,324.4C68.9,319.6 74.5,315.2 79.7,311.5C84.9,307.7 91.1,303.7 97.8,302.0C104.5,300.3 113.2,300.3 120.0,301.3C126.8,302.3 132.2,306.2 138.6,308.2C145.0,310.1 152.0,310.3 158.4,312.8C164.8,315.3 173.8,318.8 176.9,323.3C180.0,327.8 178.5,334.8 177.1,340.0Z'/%3E%3Cpath d='M205.7,340.0C203.6,347.9 198.8,354.9 194.1,361.7C189.4,368.5 184.8,375.7 177.5,380.7C170.2,385.8 160.0,388.7 150.5,392.1C140.9,395.5 131.1,399.5 120.0,401.0C108.9,402.6 93.9,404.7 84.0,401.5C74.2,398.4 66.3,388.8 60.9,381.9C55.4,375.0 55.3,367.1 51.4,360.1C47.6,353.1 39.7,347.3 37.7,340.0C35.6,332.7 35.4,323.4 38.9,316.2C42.4,309.0 50.8,302.2 58.7,296.6C66.6,290.9 76.0,284.6 86.2,282.1C96.4,279.7 109.6,280.5 120.0,282.0C130.4,283.6 138.4,289.0 148.3,291.6C158.2,294.2 169.9,293.9 179.7,297.7C189.4,301.6 202.3,307.5 206.7,314.6C211.0,321.6 207.7,332.1 205.7,340.0Z'/%3E%3Cpath d='M233.5,340.0C230.7,350.5 225.7,360.1 219.6,369.2C213.5,378.3 206.9,387.8 197.1,394.6C187.3,401.4 173.8,405.3 160.9,410.0C148.1,414.8 134.9,421.1 120.0,423.2C105.1,425.3 84.7,427.1 71.8,422.5C58.8,417.8 49.6,404.3 42.2,395.1C34.9,385.9 33.4,376.3 27.7,367.1C21.9,357.9 10.6,349.8 7.9,340.0C5.1,330.2 6.2,317.8 11.2,308.1C16.1,298.3 27.0,289.2 37.6,281.6C48.1,274.0 60.9,265.4 74.6,262.4C88.4,259.4 106.1,261.3 120.0,263.4C133.9,265.5 144.5,271.7 158.1,274.8C171.7,277.9 188.8,276.9 201.8,282.1C214.8,287.3 230.8,296.3 236.1,305.9C241.4,315.6 236.2,329.5 233.5,340.0Z'/%3E%3Cpath d='M260.7,340.0C257.4,353.2 252.6,365.4 245.3,376.8C237.9,388.2 228.8,399.8 216.5,408.4C204.3,417.0 187.7,421.9 171.6,428.2C155.5,434.4 138.6,443.6 120.0,446.0C101.4,448.5 75.7,449.3 59.8,442.9C43.9,436.6 33.8,419.2 24.4,407.7C15.0,396.3 11.2,385.5 3.4,374.2C-4.5,362.9 -19.2,352.4 -22.5,340.0C-25.8,327.6 -22.8,312.2 -16.4,300.0C-9.9,287.7 3.0,276.1 16.3,266.5C29.6,257.0 45.9,246.4 63.2,242.8C80.5,239.3 102.5,243.0 120.0,245.4C137.5,247.9 150.7,254.2 168.2,257.6C185.6,261.0 208.5,259.2 224.6,265.9C240.8,272.5 259.0,285.1 265.0,297.5C271.0,309.8 264.0,326.8 260.7,340.0Z'/%3E%3Cpath d='M287.4,340.0C283.8,355.9 279.7,370.7 271.1,384.3C262.5,398.0 250.6,411.7 235.8,422.0C221.0,432.4 201.7,438.8 182.4,446.7C163.1,454.6 142.4,466.7 120.0,469.4C97.6,472.1 67.0,471.1 48.2,462.8C29.4,454.6 18.8,433.5 7.1,419.9C-4.5,406.4 -11.6,394.9 -21.7,381.6C-31.8,368.2 -49.7,354.9 -53.4,340.0C-57.0,325.1 -51.8,306.7 -43.7,292.0C-35.7,277.2 -21.1,262.7 -5.2,251.4C10.8,240.0 31.1,227.5 52.0,223.6C72.8,219.7 98.9,225.3 120.0,228.0C141.1,230.7 157.2,236.3 178.6,239.8C199.9,243.3 229.0,241.0 248.1,249.2C267.2,257.5 286.6,274.1 293.2,289.2C299.7,304.3 291.1,324.1 287.4,340.0Z'/%3E%3Cpath d='M313.9,340.0C310.0,358.5 307.0,376.1 297.2,392.0C287.3,407.9 272.2,423.3 254.9,435.6C237.6,447.8 215.9,456.0 193.4,465.6C171.0,475.2 146.1,490.5 120.0,493.2C93.9,496.0 58.6,492.2 37.0,482.0C15.4,471.7 4.5,447.3 -9.6,431.8C-23.7,416.4 -35.1,404.5 -47.6,389.2C-60.1,373.9 -80.6,357.5 -84.5,340.0C-88.4,322.5 -80.5,301.3 -70.9,284.0C-61.3,266.7 -45.4,249.2 -26.8,236.0C-8.1,222.8 16.5,209.0 41.0,204.9C65.5,200.7 95.3,208.3 120.0,211.0C144.7,213.8 164.1,217.7 189.5,221.2C214.8,224.8 250.2,222.3 272.1,232.3C293.9,242.3 313.5,263.2 320.5,281.2C327.4,299.1 317.8,321.5 313.9,340.0Z'/%3E%3C/svg%3E");
+
+  /* ---- Bootstrap theme hooks ---- */
+  --bs-body-font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bs-body-color: var(--wl-ink);
+  --bs-body-bg: var(--wl-paper);
+  --bs-secondary-color: var(--wl-muted);
+  --bs-border-color: var(--wl-line);
+  --bs-heading-color: var(--wl-ink);
+
+  --bs-primary: #147d86;
+  --bs-primary-rgb: 20, 125, 134;
+  --bs-link-color: #147d86;
+  --bs-link-color-rgb: 20, 125, 134;
+  --bs-link-hover-color: #0f636b;
+  --bs-link-hover-color-rgb: 15, 99, 107;
+
+  --bs-border-radius: 0.75rem;
+  --bs-border-radius-lg: 1rem;
+  --bs-border-radius-xl: 1.25rem;
+}
+
+/* -------------------------------------------------------------------------
+   2. BASE
+   ------------------------------------------------------------------------- */
+body {
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--wl-font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+::selection {
+  background: rgba(244, 166, 42, 0.35);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid rgba(20, 125, 134, 0.45);
+  outline-offset: 2px;
+}
+
+.wl-page-title {
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  margin-bottom: 0.4rem;
+}
+
+/* -------------------------------------------------------------------------
+   3. BUTTONS
+   ------------------------------------------------------------------------- */
+.btn {
+  --bs-btn-font-weight: 600;
+  --bs-btn-padding-x: 1.25rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--wl-teal);
+  --bs-btn-border-color: var(--wl-teal);
+  --bs-btn-hover-bg: var(--wl-teal-dark);
+  --bs-btn-hover-border-color: var(--wl-teal-dark);
+  --bs-btn-active-bg: #0b5259;
+  --bs-btn-active-border-color: #0b5259;
+  --bs-btn-disabled-bg: var(--wl-teal);
+  --bs-btn-disabled-border-color: var(--wl-teal);
+  --bs-btn-focus-shadow-rgb: 20, 125, 134;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--wl-teal);
+  --bs-btn-border-color: var(--wl-teal);
+  --bs-btn-hover-bg: var(--wl-teal);
+  --bs-btn-hover-border-color: var(--wl-teal);
+  --bs-btn-active-bg: var(--wl-teal-dark);
+  --bs-btn-active-border-color: var(--wl-teal-dark);
+  --bs-btn-focus-shadow-rgb: 20, 125, 134;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--wl-muted);
+  --bs-btn-border-color: var(--wl-line);
+  --bs-btn-hover-bg: var(--wl-mist);
+  --bs-btn-hover-color: var(--wl-ink);
+  --bs-btn-hover-border-color: var(--wl-line);
+  --bs-btn-active-bg: var(--wl-mist);
+  --bs-btn-active-color: var(--wl-ink);
+  --bs-btn-active-border-color: var(--wl-line);
+}
+
+/* -------------------------------------------------------------------------
+   4. NAVBAR
+   ------------------------------------------------------------------------- */
+.wl-navbar {
+  background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--wl-line);
+  padding-block: 0.7rem;
+  --bs-navbar-nav-link-padding-x: 1rem;
+}
+
+.wl-brand {
+  margin-right: 1.5rem;
+}
+
+.wl-brand-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--wl-ink);
+  color: var(--wl-marigold);
+  font-size: 1.3rem;
+}
+
+.wl-brand-name {
+  font-family: var(--wl-font-display);
+  font-size: 1.55rem;
+  color: var(--wl-ink);
+  letter-spacing: -0.01em;
+}
+
+.wl-navbar .nav-link {
+  color: var(--wl-ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.wl-navbar .nav-link:hover,
+.wl-navbar .nav-link:focus-visible {
+  background: var(--wl-mist);
+  color: var(--wl-teal-dark);
+}
+
+.wl-navbar .navbar-toggler {
+  border: 1px solid var(--wl-line);
+  border-radius: 0.75rem;
+}
+
+.wl-navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(20, 125, 134, 0.2);
+}
+
+@media (max-width: 767.98px) {
+  .wl-navbar .navbar-nav {
+    padding-top: 0.75rem;
+    gap: 0.35rem;
+  }
+  .wl-navbar .btn {
+    width: 100%;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   5. FLASH ALERTS
+   ------------------------------------------------------------------------- */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border: 0;
+  border-radius: var(--wl-radius-md);
+  box-shadow: var(--wl-shadow);
+  padding-block: 0.9rem;
+}
+
+.alert-success {
+  --bs-alert-bg: #e2f3ee;
+  --bs-alert-color: #0b4a44;
+}
+
+.alert-danger {
+  --bs-alert-bg: #fdecec;
+  --bs-alert-color: #7a1f24;
+}
+
+.alert i {
+  font-size: 1.15rem;
+}
+
+/* -------------------------------------------------------------------------
+   6. HERO BAND (listings page)
+   ------------------------------------------------------------------------- */
+.wl-hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  border-radius: var(--wl-radius-lg);
+  padding: clamp(2rem, 6vw, 3.75rem);
+  background: linear-gradient(135deg, #0c2d33 0%, #11565d 55%, #147d86 100%);
+}
+
+.wl-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--wl-contours);
+  background-size: cover;
+  background-position: right center;
+  pointer-events: none;
+}
+
+.wl-hero > * {
+  position: relative;
+}
+
+.wl-hero-title {
+  font-size: clamp(2.4rem, 6vw, 3.9rem);
+  line-height: 1.02;
+  margin: 0 0 0.6rem;
+  color: #fff;
+}
+
+.wl-hero-sub {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------
+   7. LISTING CARDS (listings page)
+   ------------------------------------------------------------------------- */
+.listing-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.wl-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.wl-card-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--wl-radius-lg);
+  background: var(--wl-mist);
+  box-shadow: var(--wl-shadow);
+}
+
+.wl-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.listing-link:hover .wl-card-media img {
+  transform: scale(1.05);
+}
+
+.wl-price-tag {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.9rem;
+  background: var(--wl-marigold);
+  color: var(--wl-ink);
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(12, 45, 51, 0.25);
+}
+
+.wl-card-body {
+  padding: 0.95rem 0.25rem 0;
+}
+
+.wl-card-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.25rem;
+  color: var(--wl-ink);
+}
+
+.listing-link:hover .wl-card-title {
+  color: var(--wl-teal-dark);
+}
+
+.wl-card-meta {
+  margin: 0;
+  color: var(--wl-muted);
+  font-size: 0.92rem;
+}
+
+.wl-card-meta i {
+  color: var(--wl-teal);
+  margin-right: 0.25rem;
+}
+
+/* Empty state */
+.wl-empty {
+  background: #fff;
+  border: 1.5px dashed var(--wl-line);
+  border-radius: var(--wl-radius-lg);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+}
+
+.wl-empty i {
+  font-size: 2.5rem;
+  color: var(--wl-teal);
+}
+
+/* -------------------------------------------------------------------------
+   8. LISTING DETAIL PAGE
+   ------------------------------------------------------------------------- */
+.wl-breadcrumb {
+  --bs-breadcrumb-divider-color: var(--wl-muted);
+  --bs-breadcrumb-item-active-color: var(--wl-muted);
+  font-size: 0.9rem;
+}
+
+.wl-breadcrumb a {
+  color: var(--wl-teal);
+  text-decoration: none;
+}
+
+.wl-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.wl-subline {
+  color: var(--wl-muted);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.wl-subline i {
+  color: var(--wl-teal);
+  margin-right: 0.3rem;
+}
+
+.wl-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  border-radius: var(--wl-radius-lg);
+  box-shadow: var(--wl-shadow);
+}
+
+@media (max-width: 767.98px) {
+  .wl-photo {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Content sections separated by hairlines rather than stacked cards */
+.wl-section {
+  padding-block: 1.9rem;
+  border-top: 1px solid var(--wl-line);
+}
+
+.wl-section:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.wl-section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.wl-section-title i {
+  color: var(--wl-teal);
+  margin-right: 0.45rem;
+}
+
+.wl-description {
+  max-width: 68ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--bs-secondary-color);
+  margin: 0;
+}
+
+/* Sidebar panel (the one elevated surface on the page) */
+.wl-panel {
+  background: #fff;
+  border: 1px solid var(--wl-line);
+  border-radius: var(--wl-radius-lg);
+  box-shadow: var(--wl-shadow);
+}
+
+.wl-sticky {
+  top: 6rem;
+}
+
+.wl-price {
+  margin: 0;
+  color: var(--wl-muted);
+}
+
+.wl-price-amount {
+  font-family: var(--wl-font-display);
+  font-size: 2.1rem;
+  color: var(--wl-ink);
+  letter-spacing: -0.01em;
+}
+
+.wl-facts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wl-facts li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.7rem 0;
+}
+
+.wl-facts i {
+  color: var(--wl-teal);
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.wl-facts .wl-fact-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--wl-muted);
+  line-height: 1.3;
+}
+
+.listing-actions form {
+  margin: 0;
+}
+
+/* Reviews */
+.wl-review-form {
+  background: var(--wl-mist);
+  border-radius: var(--wl-radius-lg);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.wl-review {
+  display: flex;
+  gap: 0.95rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--wl-line);
+}
+
+.wl-review:first-of-type {
+  padding-top: 0.25rem;
+}
+
+.wl-review:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.wl-avatar {
+  flex: none;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--wl-mist);
+  color: var(--wl-teal);
+  font-size: 1.5rem;
+}
+
+.wl-rating {
+  flex: none;
+  align-self: flex-start;
+  background: var(--wl-marigold);
+  color: var(--wl-ink);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  white-space: nowrap;
+}
+
+.wl-count {
+  font-family: var(--bs-body-font-family);
+  font-size: 0.95rem;
+  color: var(--wl-muted);
+  margin-left: 0.4rem;
+}
+
+.wl-no-reviews {
+  background: var(--wl-mist);
+  border-radius: var(--wl-radius-md);
+  padding: 1.75rem 1rem;
+  text-align: center;
+  color: var(--wl-muted);
+}
+
+/* Map */
+#map {
+  width: 100%;
+  height: 400px;
+  border-radius: var(--wl-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--wl-line);
+}
+
+.mapboxgl-popup-content {
+  font-family: var(--bs-body-font-family);
+  border-radius: 0.85rem;
+  padding: 0.9rem 1.1rem;
+  box-shadow: var(--wl-shadow);
+}
+
+.mapboxgl-popup-content h5,
+.mapboxgl-popup-content h6 {
+  font-family: var(--bs-body-font-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem;
+}
+
+/* -------------------------------------------------------------------------
+   9. FORMS (new / edit / login / signup)
+   ------------------------------------------------------------------------- */
+.wl-form-card {
+  background: #fff;
+  border: 1px solid var(--wl-line);
+  border-radius: var(--wl-radius-lg);
+  box-shadow: var(--wl-shadow);
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-control {
+  padding: 0.7rem 0.95rem;
+  border-color: var(--wl-line);
+  background-color: #fff;
+}
+
+.form-control::placeholder {
+  color: #7a8f93;
+}
+
+.form-control:focus {
+  border-color: var(--wl-teal);
+  box-shadow: 0 0 0 0.25rem rgba(20, 125, 134, 0.16);
+}
+
+.form-control[type="file"]::file-selector-button {
+  background: var(--wl-mist);
+  color: var(--wl-teal-dark);
+  border-color: var(--wl-line);
+  font-weight: 600;
+}
+
+.input-group-text {
+  background: var(--wl-mist);
+  color: var(--wl-teal);
+  border-color: var(--wl-line);
+}
+
+.form-range::-webkit-slider-runnable-track {
+  background-color: #cfe0df;
+}
+.form-range::-moz-range-track {
+  background-color: #cfe0df;
+}
+.form-range::-webkit-slider-thumb {
+  background-color: var(--wl-teal);
+}
+.form-range::-moz-range-thumb {
+  background-color: var(--wl-teal);
+}
+.form-range:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px var(--wl-paper), 0 0 0 0.25rem rgba(20, 125, 134, 0.25);
+}
+.form-range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px var(--wl-paper), 0 0 0 0.25rem rgba(20, 125, 134, 0.25);
+}
+
+.wl-current-image {
+  display: block;
+  width: 100%;
+  max-width: 14rem;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--wl-radius-md);
+  border: 1px solid var(--wl-line);
+}
+
+/* -------------------------------------------------------------------------
+   10. AUTH PAGES (login / signup)
+   ------------------------------------------------------------------------- */
+.wl-auth-card {
+  background: #fff;
+  border: 1px solid var(--wl-line);
+  border-radius: var(--wl-radius-lg);
+  box-shadow: var(--wl-shadow);
+  overflow: hidden;
+}
+
+.wl-auth-aside {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  min-height: 100%;
+  color: #fff;
+  background: linear-gradient(160deg, #0c2d33 0%, #11565d 60%, #147d86 100%);
+}
+
+.wl-auth-aside::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--wl-contours);
+  background-size: cover;
+  background-position: 70% center;
+  pointer-events: none;
+}
+
+.wl-auth-aside > * {
+  position: relative;
+}
+
+.wl-auth-aside .wl-brand-mark {
+  background: rgba(255, 255, 255, 0.12);
+  margin-bottom: 1.25rem;
+}
+
+.wl-auth-aside h2 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.wl-auth-aside p {
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------
+   11. FOOTER
+   ------------------------------------------------------------------------- */
+.wl-footer {
+  background: var(--wl-ink);
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 3rem;
+}
+
+.wl-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--wl-font-display);
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.wl-footer-brand i {
+  color: var(--wl-marigold);
+}
+
+.wl-footer-tagline {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+}
+
+.wl-footer a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+.wl-footer a:hover {
+  color: var(--wl-marigold);
+}
+
+.wl-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.wl-footer-socials {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.wl-footer-socials i {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.05rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.wl-footer-socials i:hover {
+  background: var(--wl-marigold);
+  color: var(--wl-ink);
+}
+
+.wl-footer-legal {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.875rem;
+}
+
+/* -------------------------------------------------------------------------
+   12. REDUCED MOTION
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .wl-card-media img,
+  .btn,
+  .wl-navbar .nav-link,
+  .wl-footer-socials i {
+    transition: none;
+  }
+  .listing-link:hover .wl-card-media img {
+    transform: none;
+  }
+}

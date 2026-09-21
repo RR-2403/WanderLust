@@ -1,0 +1,102 @@
+<% layout("layout/boilerplate") %>
+
+<!-- SUCCESS FLASH -->
+<% if (success && success.length > 0) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill"></i>
+        <strong><%= success[0] %></strong>
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close">
+        </button>
+    </div>
+<% } %>
+
+
+<!-- ERROR FLASH -->
+<% if (error && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <strong><%= error[0] %></strong>
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close">
+        </button>
+    </div>
+<% } %>
+
+
+<!-- PAGE HEADER -->
+<section class="wl-hero mb-4 mb-md-5">
+    <h1 class="wl-hero-title">Where to next?</h1>
+    <p class="wl-hero-sub">
+        <%= allListings.length %> <%= allListings.length === 1 ? "place" : "places" %> to stay
+    </p>
+</section>
+
+
+<% if (allListings.length === 0) { %>
+
+    <!-- EMPTY STATE -->
+    <div class="wl-empty">
+        <i class="bi bi-compass"></i>
+        <h2 class="h4 mt-3">No listings yet</h2>
+        <p class="text-body-secondary mb-4">Add the first place and it will show up here.</p>
+        <a href="/listings/new" class="btn btn-primary rounded-pill px-4">Airbnb Your Home</a>
+    </div>
+
+<% } else { %>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4 g-lg-5">
+
+    <% for (let listing of allListings) { %>
+
+        <div class="col">
+
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+
+                <article class="card wl-card">
+
+                    <div class="wl-card-media">
+
+                        <img
+                            src="<%= listing.image.url %>"
+                            alt="<%= listing.title %>"
+                            loading="lazy"
+                        >
+
+                        <span class="wl-price-tag">
+                            &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                        </span>
+
+                    </div>
+
+                    <div class="wl-card-body">
+
+                        <h2 class="wl-card-title"><%= listing.title %></h2>
+
+                        <% if (listing.location || listing.country) { %>
+                            <p class="wl-card-meta">
+                                <i class="bi bi-geo-alt-fill"></i><%= [listing.location, listing.country].filter(Boolean).join(", ") %>
+                            </p>
+                        <% } %>
+
+                    </div>
+
+                </article>
+
+            </a>
+
+        </div>
+
+    <% } %>
+
+</div>
+
+<% } %>

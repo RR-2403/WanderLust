@@ -1,0 +1,105 @@
+<% layout("layout/boilerplate") %>
+
+<div class="row justify-content-center">
+<div class="col-lg-8 col-xl-7">
+
+<div class="wl-form-card">
+<div class="p-4 p-md-5">
+
+<h1 class="wl-page-title">Create New Listing</h1>
+<p class="text-body-secondary mb-4">Add the details guests will see on your listing.</p>
+
+<form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            placeholder="Enter listing title"
+            required
+        >
+        <div class="valid-feedback">Looks good!</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            placeholder="Enter listing description"
+            rows="4"
+            required
+        ></textarea>
+        <div class="invalid-feedback">Please add a description.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">Listing image</label>
+        <input id="image" name="listing[image]" type="file" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <div class="input-group has-validation">
+            <span class="input-group-text">&#8377;</span>
+            <input
+                type="number"
+                class="form-control"
+                id="price"
+                name="price"
+                placeholder="Enter price"
+                required
+            >
+            <span class="input-group-text">/ night</span>
+            <div class="invalid-feedback">Give a valid price</div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-6">
+            <label for="country" class="form-label">Country</label>
+            <input
+                type="text"
+                class="form-control"
+                id="country"
+                name="country"
+                placeholder="Enter country"
+                required
+            >
+            <div class="invalid-feedback">Provide a valid country.</div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="location" class="form-label">Location</label>
+            <input
+                type="text"
+                class="form-control"
+                id="location"
+                name="location"
+                placeholder="Enter location"
+                required
+            >
+            <div class="invalid-feedback">Provide a precise location</div>
+        </div>
+
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+        <button type="submit" class="btn btn-primary rounded-pill px-4">
+            Create Listing
+        </button>
+        <a href="/listings" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+    </div>
+
+</form>
+
+</div>
+</div>
+
+</div>
+</div>

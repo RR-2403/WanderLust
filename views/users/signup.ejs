@@ -1,0 +1,139 @@
+<% layout("layout/boilerplate") %>
+
+<% if (error && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <strong><%= error[0] %></strong>
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close">
+        </button>
+    </div>
+<% } %>
+
+<div class="row justify-content-center mt-lg-4">
+    <div class="col-lg-10 col-xl-9">
+
+        <div class="wl-auth-card">
+            <div class="row g-0">
+
+                <!-- Side panel -->
+                <div class="col-md-5 d-none d-md-block">
+                    <div class="wl-auth-aside h-100">
+                        <span class="wl-brand-mark"><i class="fa-regular fa-compass"></i></span>
+                        <h2>Join Wanderlust</h2>
+                        <p>Create an account to list your place and leave reviews.</p>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="col-md-7">
+                    <div class="p-4 p-md-5">
+
+                        <h1 class="h3 mb-4">Create Your Wanderlust Account</h1>
+
+                        <form
+                            action="/signup"
+                            method="POST"
+                            class="needs-validation"
+                            novalidate
+                        >
+
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">
+                                    Username
+                                </label>
+
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Enter your username"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Please enter a username.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    Email
+                                </label>
+
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Password -->
+                            <div class="mb-4">
+                                <label for="password" class="form-label">
+                                    Password
+                                </label>
+
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="password"
+                                        name="password"
+                                        placeholder="Enter your password"
+                                        required
+                                        minlength="6"
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Password must be at least 6 characters.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Submit -->
+                            <button
+                                type="submit"
+                                class="btn btn-primary rounded-pill px-4 w-100"
+                            >
+                                Sign Up
+                            </button>
+
+                        </form>
+
+                        <p class="mt-4 mb-0 text-body-secondary">
+                            Already have an account?
+                            <a href="/login" class="fw-semibold">Log in here</a>
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
