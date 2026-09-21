@@ -1,7 +1,4 @@
 {
-  "engines": {
-    "node": "24.15.0"
-  },
   "name": "wanderlust_full-stack",
   "version": "1.0.0",
   "description": "",
