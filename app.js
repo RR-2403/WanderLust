@@ -143,9 +143,12 @@ app.use((err, req, res, next) => {
   res.status(statusCode).send(message);
 });
 
+if (require.main === module) {
+  const port = process.env.PORT || 8080;
 
-const port = 8080;
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = app;
