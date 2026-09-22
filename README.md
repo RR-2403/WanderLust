@@ -389,7 +389,6 @@ Express app → EJS templates → MongoDB + Mongoose → CRUD listings → Revie
 ## 👨‍💻 Author
 
 **Rajdeep Roy**
-B.Tech, Instrumentation Engineering, University of Calcutta
 
 **Areas of interest:** Full-Stack Development · Software Engineering · Data Structures & Algorithms · Machine Learning · Automation & Instrumentation
 
